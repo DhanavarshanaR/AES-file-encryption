@@ -63,32 +63,33 @@ public class AESFileEncryption {
     }
 
     // Decrypt file
-    public static void decryptFile(String password, String outputFile, String password2) throws Exception {
-            try (FileInputStream fis = new FileInputStream(outputFile)) {
-                // Read salt + IV from file
-                byte[] salt = new byte[SALT_LENGTH];
-                fis.read(salt);
-    
-                byte[] iv = new byte[IV_LENGTH];
-                fis.read(iv);
-    
-                SecretKeySpec key = deriveKey(password, salt);
-                IvParameterSpec ivSpec = new IvParameterSpec(iv);
-    
-                Cipher cipher = Cipher.getInstance("AES/CBC/PKCS5Padding");
-                cipher.init(Cipher.DECRYPT_MODE, key, ivSpec);
-    
-                try (CipherInputStream cis = new CipherInputStream(fis, cipher);
-                     FileOutputStream fos = new FileOutputStream(password2)) {
+    public static void decryptFile(String password, String inputFile, String outputFile) throws Exception {
+    try (FileInputStream fis = new FileInputStream(inputFile)) {  // FIXED: read encrypted file
+        // Read salt + IV from file
+        byte[] salt = new byte[SALT_LENGTH];
+        fis.read(salt);
 
-                byte[] buffer = new byte[4096];
-                int bytesRead;
-                while ((bytesRead = cis.read(buffer)) != -1) {
-                    fos.write(buffer, 0, bytesRead);
-                }
+        byte[] iv = new byte[IV_LENGTH];
+        fis.read(iv);
+
+        SecretKeySpec key = deriveKey(password, salt);
+        IvParameterSpec ivSpec = new IvParameterSpec(iv);
+
+        Cipher cipher = Cipher.getInstance("AES/CBC/PKCS5Padding");
+        cipher.init(Cipher.DECRYPT_MODE, key, ivSpec);
+
+        try (CipherInputStream cis = new CipherInputStream(fis, cipher);
+             FileOutputStream fos = new FileOutputStream(outputFile)) {
+
+            byte[] buffer = new byte[4096];
+            int bytesRead;
+            while ((bytesRead = cis.read(buffer)) != -1) {
+                fos.write(buffer, 0, bytesRead);
             }
         }
     }
+}
+
 
     // Main
     public static void main(String[] args) {
