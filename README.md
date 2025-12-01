@@ -55,18 +55,26 @@ Example
 Encryption:
 
 Enter mode (encrypt/decrypt): encrypt
+
 Enter input file path: project.txt
+
 Enter output file path: project.enc
+
 Enter password: MySecret123
+
 File encrypted successfully.
 
 
 Decryption:
 
 Enter mode (encrypt/decrypt): decrypt
+
 Enter input file path: project.enc
+
 Enter output file path: project_dec.txt
+
 Enter password: MySecret123
+
 File decrypted successfully.
 
 Encrypted File Format
