@@ -78,6 +78,7 @@ Enter password: MySecret123
 File decrypted successfully.
 
 Encrypted File Format
+
 [16 bytes salt][16 bytes IV][Encrypted data...]
 
 
@@ -97,7 +98,7 @@ Requirements
 
 2)No external libraries
 
-3)License
+
 
 This project is open source project. Use and modify freely.
 
