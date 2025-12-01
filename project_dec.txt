@@ -1,0 +1,3 @@
+Hello all!
+This project is a java based AES File Encryption and decryption tool design to securely protect files using password-based encryption.
+it uses AES 128 bit encryption and PBKDF2 key derivation,allowing user to encrypt and decrypt any type of file with a password.
